@@ -9,8 +9,8 @@
             column 数据库字段的名称
             property pojo类的名称
             -->
-    <id property="id"  column="id"/>
-    <id property="cId"  column="c_id"/>
+    <id property="id" column="id"/>
+    <id property="cId" column="c_id"/>
     <result property="title" column="title"/>
     <result property="content" column="content"/>
     <result property="createTime" column="create_time"/>
@@ -18,44 +18,45 @@
          association 配置属性一对一
          property 对应videoOrder里面的user属性名
          javaType 这个属性的类型
+         注意：如果关联表的字段与主表的字段名一样，需要根据实际业务情况决定取主表的字段映射还是自身表的字段进行映射，
+              如果取自身的字段映射那么column="" 需与mapper SQL语句里面对应字段的唯一别名进行映射，否则默认是取与主表相同字段名进行映射。
+              例如：主表与关联表都有create_time，如果不进行映射则取主表的create_time,如果关联表需要取它自身的，则在mapper SQL 里面 需要查询自身表字段 as xxx，那么
+                   <result column="xxx"。
          -->
-    <association property="reply" javaType="com.xdclass.net.springlearningdemo.mybatis.entity.Reply">
-      <id column="id" property="id" jdbcType="INTEGER" />
-      <result column="topic_id" property="topicId"  jdbcType="INTEGER" />
-      <result column="content" property="content"  jdbcType="VARCHAR" />
-      <result column="create_time"  property="createTime"  jdbcType="VARCHAR" />
+    <association property="reply"
+      javaType="com.xdclass.net.springlearningdemo.mybatis.entity.Reply">
+      <id column="id" property="id" jdbcType="INTEGER"/>
+      <result column="topic_id" property="topicId" jdbcType="INTEGER"/>
+      <result column="content" property="content" jdbcType="VARCHAR"/>
+      <result column="create_time" property="createTime" jdbcType="VARCHAR"/>
     </association>
   </resultMap>
   <select id="query" resultMap="TopicResultMap">
-    SELECT
-      t.id,
-      t.c_id,
-      t.title,
-      t.content,
-      t.create_time,
-      r.id as r_id,
-      r.topic_id,
-      r.content as r_content,
-      r.create_time as r_create_time
-    FROM
-      topic t
-        LEFT JOIN reply r ON r.topic_id = t.id
-where t.id = #{id,jdbcType=INTEGER}
+    SELECT t.id,
+           t.c_id,
+           t.title,
+           t.content,
+           t.create_time,
+           r.id          as r_id,
+           r.topic_id,
+           r.content     as r_content,
+           r.create_time as r_create_time
+    FROM topic t
+           LEFT JOIN reply r ON r.topic_id = t.id
+    where t.id = #{id,jdbcType=INTEGER}
   </select>
   <select id="query" resultMap="TopicResultMap">
-    SELECT
-      t.id,
-      t.c_id,
-      t.title,
-      t.content,
-      t.create_time,
-      r.id,
-      r.topic_id,
-      r.content ,
-      r.create_time
-    FROM
-      topic t
-        LEFT JOIN reply r ON r.topic_id = t.id
+    SELECT t.id,
+           t.c_id,
+           t.title,
+           t.content,
+           t.create_time,
+           r.id,
+           r.topic_id,
+           r.content,
+           r.create_time
+    FROM topic t
+           LEFT JOIN reply r ON r.topic_id = t.id
     where t.id = #{id,jdbcType=INTEGER}
   </select>
 </mapper>
