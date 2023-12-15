@@ -31,20 +31,20 @@
       <result column="create_time" property="createTime" jdbcType="VARCHAR"/>
     </association>
   </resultMap>
-  <select id="query" resultMap="TopicResultMap">
-    SELECT t.id,
-           t.c_id,
-           t.title,
-           t.content,
-           t.create_time,
-           r.id          as r_id,
-           r.topic_id,
-           r.content     as r_content,
-           r.create_time as r_create_time
-    FROM topic t
-           LEFT JOIN reply r ON r.topic_id = t.id
-    where t.id = #{id,jdbcType=INTEGER}
-  </select>
+<!--  <select id="query" resultMap="TopicResultMap">-->
+<!--    SELECT t.id,-->
+<!--           t.c_id,-->
+<!--           t.title,-->
+<!--           t.content,-->
+<!--           t.create_time,-->
+<!--           r.id          as r_id,-->
+<!--           r.topic_id,-->
+<!--           r.content     as r_content,-->
+<!--           r.create_time as r_create_time-->
+<!--    FROM topic t-->
+<!--           LEFT JOIN reply r ON r.topic_id = t.id-->
+<!--    where t.id = #{id,jdbcType=INTEGER}-->
+<!--  </select>-->
   <select id="query" resultMap="TopicResultMap">
     SELECT t.id,
            t.c_id,
