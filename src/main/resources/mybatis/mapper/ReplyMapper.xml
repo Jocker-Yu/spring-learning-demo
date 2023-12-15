@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xdclass.net.springlearningdemo.mybatis.mapper.ReplyMapper">
+  <resultMap id="ReplyResultMap" type="com.xdclass.net.springlearningdemo.mybatis.entity.Reply">
+    <!--
+            id 指定查询列的唯一标示
+            column 数据库字段的名称
+            property pojo类的名称
+            -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="topic_id" property="topicId"  jdbcType="INTEGER" />
+    <result column="content" property="content"  jdbcType="VARCHAR" />
+    <result column="create_time"  property="createTime"  jdbcType="VARCHAR" />
+    <!--
+         association 配置属性一对一
+         property 对应videoOrder里面的user属性名
+         javaType 这个属性的类型
+         -->
+    <association property="topic" javaType="com.xdclass.net.springlearningdemo.mybatis.entity.Topic">
+      <id property="id"  column="id"/>
+      <result property="title" column="title"/>
+      <result property="content" column="content"/>
+      <result property="createTime" column="create_time"/>
+    </association>
+  </resultMap>
+</mapper>
