@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xdclass.net.springlearningdemo.mybatis.mapper.TopicMapper">
+  <resultMap id="TopicResultMap" type="com.xdclass.net.springlearningdemo.mybatis.entity.Topic">
+    <!--
+            id 指定查询列的唯一标示
+            column 数据库字段的名称
+            property pojo类的名称
+            -->
+    <id property="id"  column="id"/>
+    <id property="cId"  column="c_id"/>
+    <result property="title" column="title"/>
+    <result property="content" column="content"/>
+    <result property="createTime" column="create_time"/>
+    <!--
+         association 配置属性一对一
+         property 对应videoOrder里面的user属性名
+         javaType 这个属性的类型
+         -->
+    <association property="reply" javaType="com.xdclass.net.springlearningdemo.mybatis.entity.Reply">
+      <id column="id" property="id" jdbcType="INTEGER" />
+      <result column="topic_id" property="topicId"  jdbcType="INTEGER" />
+      <result column="content" property="content"  jdbcType="VARCHAR" />
+      <result column="create_time"  property="createTime"  jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+  <select id="query" resultMap="TopicResultMap">
+    SELECT
+      t.id,
+      t.c_id,
+      t.title,
+      t.content,
+      t.create_time,
+      r.id as r_id,
+      r.topic_id,
+      r.content as r_content,
+      r.create_time as r_create_time
+    FROM
+      topic t
+        LEFT JOIN reply r ON r.topic_id = t.id
+where t.id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="query" resultMap="TopicResultMap">
+    SELECT
+      t.id,
+      t.c_id,
+      t.title,
+      t.content,
+      t.create_time,
+      r.id,
+      r.topic_id,
+      r.content ,
+      r.create_time
+    FROM
+      topic t
+        LEFT JOIN reply r ON r.topic_id = t.id
+    where t.id = #{id,jdbcType=INTEGER}
+  </select>
+</mapper>
