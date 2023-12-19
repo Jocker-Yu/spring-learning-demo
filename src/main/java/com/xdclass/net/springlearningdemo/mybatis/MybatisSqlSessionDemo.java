@@ -24,8 +24,10 @@ public class MybatisSqlSessionDemo {
     //获取Session
     try(SqlSession sqlSession = sqlSessionFactory.openSession()){
       TopicMapper topicMapper = sqlSession.getMapper(TopicMapper.class);
-      Topic video = topicMapper.query(22);
-      System.out.println(video.toString());
+      for (int i = 0; i < 3; i++) {
+        Topic video = topicMapper.query(22);
+        System.out.println(video.toString());
+      }
 //      List<Video> videoList =  videoMapper.selectList();
 //      System.out.println(videoList.toString());
     }
