@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("my/11/1")
+@RequestMapping("my/11/1、2")
 public class MyDemoController {
 
   @GetMapping("map")
